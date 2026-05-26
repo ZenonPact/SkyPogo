@@ -1,0 +1,56 @@
+[gd_scene load_steps=12 format=3 uid="uid://tymtj3rtw47c"]
+
+[ext_resource type="Script" uid="uid://b1k2t4ug7dc2n" path="res://Scenes/Game/Game.gd" id="1_ciybh"]
+[ext_resource type="Texture2D" uid="uid://fn2tcltdvyo5" path="res://Assets/Images/free_-_skybox_cliffside_0.hdr" id="1_mv0hc"]
+[ext_resource type="PackedScene" uid="uid://bdni7nduojvh6" path="res://Scenes/Spawner/Spawner.tscn" id="3_i1e5p"]
+[ext_resource type="PackedScene" uid="uid://kd2os8shtqbq" path="res://Scenes/Player/Player.tscn" id="3_qikps"]
+[ext_resource type="PackedScene" uid="uid://dptdwvvsub56t" path="res://PlayerCam/PlayerCam.tscn" id="4_i1e5p"]
+[ext_resource type="AudioStream" uid="uid://j5nmw8e1vt05" path="res://Assets/Sounds/Arroz Con Pollo.mp3" id="6_flgk0"]
+[ext_resource type="PackedScene" uid="uid://ccn0rvovpmbw1" path="res://Scenes/Hud/Hud.tscn" id="7_vifcx"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_qxfds"]
+panorama = ExtResource("1_mv0hc")
+
+[sub_resource type="Sky" id="Sky_mv0hc"]
+sky_material = SubResource("PanoramaSkyMaterial_qxfds")
+
+[sub_resource type="Environment" id="Environment_qxfds"]
+background_mode = 2
+sky = SubResource("Sky_mv0hc")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_flgk0"]
+
+[node name="Game" type="Node"]
+script = ExtResource("1_ciybh")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_qxfds")
+
+[node name="Player" parent="." instance=ExtResource("3_qikps")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.4158134, 0)
+
+[node name="Spawner" parent="." instance=ExtResource("3_i1e5p")]
+
+[node name="PlayerCam" parent="." instance=ExtResource("4_i1e5p")]
+transform = Transform3D(1, 0, 0, 0, 0.8771462, 0.4802235, 0, -0.4802235, 0.8771462, 0, 8, 5.5)
+
+[node name="Floor" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -200, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape3D_flgk0")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_flgk0")
+volume_db = -10.0
+autoplay = true
+
+[node name="Hud" parent="." instance=ExtResource("7_vifcx")]
+
+[connection signal="body_entered" from="Floor" to="." method="_on_floor_body_entered"]

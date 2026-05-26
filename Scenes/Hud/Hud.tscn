@@ -1,0 +1,78 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccn0rvovpmbw1"]
+
+[ext_resource type="Script" uid="uid://bkblksi3rgd4b" path="res://Scenes/Hud/Hud.gd" id="1_vvs1i"]
+[ext_resource type="LabelSettings" uid="uid://cf2nqt05lx1bo" path="res://Resources/LabelWhite48.tres" id="2_iteex"]
+[ext_resource type="FontFile" uid="uid://cfhp05ytwvbsy" path="res://Assets/Fonts/LuckiestGuy-Regular.ttf" id="3_xymhr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bbjj2"]
+font = ExtResource("3_xymhr")
+font_size = 48
+font_color = Color(1, 0.35686275, 1, 1)
+outline_size = 10
+outline_color = Color(0.11764706, 0.11764706, 0.11764706, 1)
+shadow_size = 3
+
+[node name="Hud" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vvs1i")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 71.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+
+[node name="Score" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "000000"
+label_settings = ExtResource("2_iteex")
+vertical_alignment = 1
+
+[node name="Best" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "Best: 100"
+label_settings = ExtResource("2_iteex")
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2, 0.28235295, 1, 0.4392157)
+
+[node name="GameOverLabel" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -24.5
+offset_right = 104.0
+offset_bottom = 24.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "game over"
+label_settings = SubResource("LabelSettings_bbjj2")
+vertical_alignment = 1
