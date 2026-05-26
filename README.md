@@ -1,1 +1,3 @@
-Godot Project
+# Godot Project
+
+Small platformer, infinite jump game
